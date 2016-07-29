@@ -12,42 +12,52 @@ class Navigation extends React.Component {
     this.props.logout();
     this.context.router.push('/');
   }
-  componentDidMount(){
-    console.log('MOUNTING');
-    $('.dropdown-content').html('\
-      <li><a href="#!">asdf</a></li>\
-      <li><a href="#!">yay</a></li>\
-      <li className="divider"></li>\
-      <li><a href="#!">three</a></li>\
-      ');
-    $('.dropdown-button').dropdown('open');
-  }
-  showDrop(){
-    $('.dropdown-button').dropdown('open');
-  }
   render() {
     return (
       <div>
         {/*NOTIFICATION - DROPDOWN MENU*/}
-        <ul id="notifications" className="dropdown-content">
-        <li><a href="#!">one</a></li>\
-        <li><a href="#!">two</a></li>\
-        <li className="divider"></li>\
-        <li><a href="#!">three</a></li>\
+        <ul id="dropdown1" className="dropdown-content">
+          <li><a href="#!">one</a></li>
+          <li><a href="#!">two</a></li>
+          <li className="divider"></li>
+          <li><a href="#!">three</a></li>
         </ul>
         <nav className="light-blue lighten-1" role="navigation">
           <div className="nav-wrapper container">
+
+            {/*MAIN NAVBAR*/}
+            <img className="logo" src="/assets/images/grandiose-potatoe.gif" height="100%"/>
+            <Link id="logo-container" to="/" className="brand-logo"> Vime </Link>
+            <a href="#" data-activates="mobile-demo" className="right button-collapse"><i className="material-icons">menu</i></a>
+            
             {this.props.location === '/login' ? '' : this.props.user ? 
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><button onClick={this.handleLogout} className="btn-large waves-effect waves-light blue darken-1">Log Out</button></li>
                 <li><Link to="/profile" className="btn-large waves-effect waves-light blue darken-1"><i className="material-icons">perm_identity</i></Link></li> 
+                <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Dropdown</a></li>
               </ul>
               :
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><Link to="/login" className="btn-large waves-effect waves-light blue darken-1">Login/Signup</Link></li>
               </ul>
-            }    
-            <a href='javascript:;' onClick={this.showDrop} id='db1' className="dropdown-button" data-activates="notifications"><i className="material-icons">new_releases</i></a>
+            }          
+
+
+
+            {/*SIDE NAV-SMALLER VIEW*/}
+            <ul className="side-nav" id="mobile-demo">
+            {this.props.location === '/login' ? '' : this.props.user ? 
+              <li><Link to="/profile" className="btn-large waves-effect waves-light blue darken-1"><i className="material-icons">perm_identity</i></Link></li> 
+              :
+              <li><Link to="/login" className="btn-large waves-effect waves-light blue darken-1">Login/Signup</Link></li>
+            }  
+            {this.props.location === '/login' ? 
+            '' : this.props.user ? 
+              <li><a href='javascript:;' onClick={this.handleLogout} className="btn-large waves-effect waves-light blue darken-1">Log Out</a></li>
+              :
+              ''
+            }            
+            </ul>
           </div>
         </nav>
       </div>
